@@ -17,7 +17,7 @@
 ## spring security 인증 순서
 AuthenticationFilter -> attempAuthentication -> loadUserByUserName -> SuccessfulAuthentication or unSuccessfulAuthentication 
 
-## jwt 토큰 (json web token)
+## JWT 토큰 (json web token)
 사용자의 인증 정보를 암호화한 토큰
 header, payload, signature로 구성됨
 header : signature에서 사용하는 알고리즘 저장
