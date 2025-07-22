@@ -14,7 +14,7 @@
   7. UsernamePasswordAuthenticationFilter > unSuccessfulAuthentication : 로그인 실패 시 실행
   8. AuthenticationFilter : Authentication 객체를 생성해서 AuthenticationManager에 인증 역할 위임
 
-## spring security 인증 순서
+## Spring Security 인증 순서
 AuthenticationFilter -> attempAuthentication -> loadUserByUserName -> SuccessfulAuthentication or unSuccessfulAuthentication 
 
 ## JWT 토큰 (json web token)
