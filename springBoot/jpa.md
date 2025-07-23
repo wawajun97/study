@@ -19,52 +19,73 @@ Java 진영에서 ORM 기술 표준으로 사용하는 인터페이스 모음
     - 단방향일 때
       - user 테이블
 
-            @OneToOne
-            @JoinColumn(name = "blog_no")
-            private Blog blog;
-
+        ```
+        @OneToOne
+        @JoinColumn(name = "blog_no")
+        private Blog blog;
+        ```
+        
     - 양방향일 때 -> 단방향을 양쪽 테이블에서 연결
       - user 테이블
 
-            @OneToOne
-            @JoinColumn(name = "blog_no")
-            private Blog blog;
-      
+        ```
+        @OneToOne
+        @JoinColumn(name = "blog_no")
+        private Blog blog;
+        ```
+              
       - blog 테이블
 
-            @OneToOne(mappedBy = "blog")
-            private User user;
+        ```
+        @OneToOne(mappedBy = "blog")
+        private User user;
+        ```           
 
 - @ManyToOne : 다대일 매핑
   - 단방향일 때
     - member 테이블
-      
-          @ManyToOne
-          @JoinColumn(name ="TEAM_ID")
-          private Team team;
+
+        ```
+        @ManyToOne
+        @JoinColumn(name ="TEAM_ID")
+        private Team team;
+        ```  
 
   - 양방향일 때 -> 단방향을 양쪽 테이블에서 연결
     - member 테이블
-        
-              @ManyToOne
-              @JoinColumn(name ="TEAM_ID")
-              private Team team;
-
+   
+        ```
+        @ManyToOne
+        @JoinColumn(name ="TEAM_ID")
+        private Team team;
+        ```
+              
     - team 테이블
 
-              @OneToMany(mappedBy="team")
-              private List<Member> members = new ArrayList<>();
+        ```
+        @OneToMany(mappedBy="team")
+        private List<Member> members = new ArrayList<>();
+        ```
 
 - mappedBy는 테이블 컬럼에 추가되지 않는다.
 - @MapsId : 복합키일 때 하나의 pk를 fk로 사용하고 싶을 때 사용 (@ManyToOne위에 붙임)
 
-=> 주인은 joinColumn만 주인이 아니면 mappedBy 속성 적용
-      OneToMany 단방향은 성능이 좋지 않음 -> 양방향 추천
+    => 주인은 joinColumn만 주인이 아니면 mappedBy 속성 적용
+          OneToMany 단방향은 성능이 좋지 않음 -> 양방향 추천
 
-양방향일 경우 양쪽 다 set을 해줘야한다.
+- 양방향일 경우 양쪽 다 set을 해줘야한다.
+    - Member
 
-ex) member.setTeam(team), team.getMembers().add(member)
-
+        ```
+        member.setTeam(team)
+        ```
+        
+    - Team
+    
+        ```
+        team.getMembers().add(member)
+        ```
+    
 ## 복합키 설정 방법
 1. ID로 사용할 객체 생성 -> 이 객체에 @Embeddable, implements serializable 구현
 2. 엔티티에서 ID 객체 사용하고 ID 필드에 @EmbeddedId 어노테이션 붙여줌
