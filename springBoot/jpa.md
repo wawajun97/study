@@ -57,3 +57,13 @@ Java 진영에서 ORM 기술 표준으로 사용하는 인터페이스 모음
 
 => 주인은 joinColumn만 주인이 아니면 mappedBy 속성 적용
       OneToMany 단방향은 성능이 좋지 않음 -> 양방향 추천
+
+## Spring Data JPA
+> CRUD를 편하게 사용할 수 있도록 Spring에서 제공해주는 기능
+
+- 대량으로 save 시 일정 개수마다 영속성 컨텍스트 초기화 해줘야 함
+
+```
+em.flush();
+em.clear();
+```
