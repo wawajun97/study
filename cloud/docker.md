@@ -34,35 +34,39 @@
 - redis는 redis-cli가 있는데 redis를 도커로 실행시켰을 때 redis-cli 사용법
   - docker exec -it container-id redis-cli로 실행 가능하다.
 
-리눅스 환경에서 생성하는 프로세스들은 stdin(standard input), stdout(standard output), stderr가 있다.(얘네들은 통신채널)
-->정보를 전달할 때 사용한다.
--> 위에 -it = -i -t와 동일하고 -i는 input -t는 포맷을 의미한다 -> 즉, cli에 입력하고 결과값을 출력 가능하도록 해준다.(-i가 없으면 cli에 입력 불가능, -t는 들여쓰기 등 이쁘게 보여줌)
+- 리눅스 환경에서 생성하는 프로세스들은 stdin(standard input), stdout(standard output), stderr가 있다.(얘네들은 통신채널)
+  - 정보를 전달할 때 사용한다.
+  - 위에 -it = -i -t와 동일하고 -i는 input -t는 포맷을 의미한다 -> 즉, cli에 입력하고 결과값을 출력 가능하도록 해준다.(-i가 없으면 cli에 입력 불가능, -t는 들여쓰기 등 이쁘게 보여줌)
 
-docker exec -it container-id sh
-->unix명령어를 사용가능하다. 즉, docker 프로그램 내부로 들어가서 내부에서 무언가 작업이 가능하다.(디렉토리 경로보면 리눅스 디렉토리 경로랑 비슷)
-->디버깅할 때 주로 사용
--> 나갈때는 ctrl + d
+- docker exec -it container-id sh
+  - unix명령어를 사용가능하다. 즉, docker 프로그램 내부로 들어가서 내부에서 무언가 작업이 가능하다.(디렉토리 경로보면 리눅스 디렉토리 경로랑 비슷)
+  - 디버깅할 때 주로 사용
+  - 나갈때는 ctrl + d
 
-docker run -it image-id sh
-->실행과 동시에 셸 스크립트로 이동
--> 동일한 이미지를 두개 실행하고 하나의 컨테이너에서 파일을 만들면 나머지 컨테이너에는 파일이 없다. 각자 독립적인 시스템이기 때문
+- docker run -it image-id sh
+  - 실행과 동시에 셸 스크립트로 이동
+  - 동일한 이미지를 두개 실행하고 하나의 컨테이너에서 파일을 만들면 나머지 컨테이너에는 파일이 없다. 각자 독립적인 시스템이기 때문
 
-도커 파일 예제(커스텀 이미지를 만들기 위하여  Dockerfile이 필요함)
+## Docker 파일 예제(커스텀 이미지를 만들기 위하여  Dockerfile이 필요함)
+```
 #Use an existing docker image as a base
 FROM alpine -> 알파인 리눅스라는 리눅스 종류 중 하나를 베이스 이미지로 사용한다는 의미(우분투 등 사용 가능)
 #Download and install a dependency
 RUN apk add --update redis -> 쉘 명령어 실행(알파인에 redis가 설치됨)
 #Tell the image what to do when it starts as a container
-CMD ["redis-server"] -> 컨테이너 기본 실행 명령어(컨테이너를 실행하면 redis를 실행해라라는 의미)
 
-Dockerfile이 있는 디렉토리 이동 후
-docker build . 하면 Dockerfile을 기준으로 이미지 생성(docker duild -t 임의의 이미지 이름 . 하면 이미지 이름으로 생성 가능)
-docekr run image-id로 도커 실행 가능(image-id대신 이미지 이름 가능)
+```
+> CMD ["redis-server"] -> 컨테이너 기본 실행 명령어(컨테이너를 실행하면 redis를 실행해라라는 의미)
 
-docker compose는 여러개의 컨테이너를 동시에 실행하는 기능뿐만 아니라 컨테이너간의 네트워킹 기능도 제공
-예를 들어, index.js를 실행하는데 거기서 도커로 실행한 redis에 값을 저장하고 싶으면 각각 실행하면 연결이 안되고 docker compose로 두개를 같이 돌려야 네트워킹이 된다.
--> docker-compose.yml 설정
--> docker-compose up 으로 실행
--> docker-compose up -d : 백그라운드로 실행
--> docker-compose down : docker compose 전체 종료(docker compose로 실행해도 컨테이너 아이디는 각각 생성되지만 이 명령어는 docker compose 내의 모든 컨테이너를 종료한다)
--> docker-compose up --build : 파일에 변경이 있을 때 재시작 시 사용
+## Docker 이미지 생성
+- Dockerfile이 있는 디렉토리로 이동
+- docker build . 하면 Dockerfile을 기준으로 이미지 생성(docker duild -t 임의의 이미지 이름 . 하면 이미지 이름으로 생성 가능)
+- docekr run image-id로 도커 실행 가능(image-id대신 이미지 이름 가능)
+
+## docker compose는 여러개의 컨테이너를 동시에 실행하는 기능뿐만 아니라 컨테이너간의 네트워킹 기능도 제공
+- 예를 들어, index.js를 실행하는데 거기서 도커로 실행한 redis에 값을 저장하고 싶으면 각각 실행하면 연결이 안되고 docker compose로 두개를 같이 돌려야 네트워킹이 된다.
+  - docker-compose.yml 설정
+  - docker-compose up 으로 실행
+  - docker-compose up -d : 백그라운드로 실행
+  - docker-compose down : docker compose 전체 종료(docker compose로 실행해도 컨테이너 아이디는 각각 생성되지만 이 명령어는 docker compose 내의 모든 컨테이너를 종료한다)
+  - docker-compose up --build : 파일에 변경이 있을 때 재시작 시 사용
