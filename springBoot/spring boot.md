@@ -58,7 +58,7 @@
             private CocoService cocoService;
 
     - 생성자 주입을 선호하는 이유
-      1. 순환 참조 방지 : setter 주입과 필드 주입은 Bean이 생성된 후 참조해서 실행은 되나 호출 시 에러 발생(생성자 주입은 실행 시 에러 방생)
+      1. 순환 참조 방지 : setter 주입과 필드 주입은 Bean이 생성된 후 참조해서 실행은 되나 호출 시 에러 발생(생성자 주입은 실행 시 에러 발생)
       2. 불변성 : final 키워드를 사용해서 변하지 않음
 
 - AOP(Aspect Oriented Programming)
