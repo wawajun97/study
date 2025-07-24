@@ -23,7 +23,7 @@
 
 > kubectl = kubernetes + controller 약자 => 쿠버네티스 명령어
 
-##
+***
 kubectl create deployment -> 포드, 리플리카셋, 디플로이먼트 생성
 kubectl expose deployment -> 서비스 생성
 
