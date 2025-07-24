@@ -7,7 +7,7 @@
   1. Authentication : 접근하는 주체의 정보와 권한을 담는 인터페이스
   2. SecurityContext : 로그인한 사용자의 Authentication을 보관
   3. UserDetails : 인증을 성공하면 시큐리티가 생성하는 객체
-      - CustomUserDetails를 만들어서 implements Userdetails로 커스텀 유저 클래스 만들어서 사용
+      - CustomUserDetails를 만들어서 Userdetails 구현
   4. UserDetailsService > loadUserByUserName : 로그인 시도하는 함수
   5. UsernamePasswordAuthenticationFilter > attempAuthentication : 로그인 시도 시 실행
   6. UsernamePasswordAuthenticationFilter > SuccessfulAuthentication : 로그인 성공 시 실행 -> jwt 사용 시 토큰 발행
