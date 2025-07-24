@@ -19,10 +19,15 @@ AuthenticationFilter -> attempAuthentication -> loadUserByUserName -> Successful
 
 ## JWT 토큰 (json web token)
 사용자의 인증 정보를 암호화한 토큰
+
 header, payload, signature로 구성됨
-header : signature에서 사용하는 알고리즘 저장
-payload : 대상자, 만료 시간 등 정보 저장
-signature : header와 payload를 합쳐 암호화한 값
+- header : signature에서 사용하는 알고리즘 저장
+- payload : 대상자, 만료 시간 등 정보 저장
+- signature : header와 payload를 합쳐 암호화한 값
 
 ### 로그인 성공 시 절차
-사용자 로그인 성공 -> accessToken과 refreshToken 발급 -> api 요청 시마다 클라이언트는 accessToken을 헤더에 넣어서 전달 -> accessToken 검사(만료 시 refreshToken으로 accessToken 재발급) -> 유효한 토큰일 시 api 실행
+1. 사용자 로그인 성공
+2. accessToken과 refreshToken 발급하여 사용자에게 전달
+3. api 요청 시마다 사용자는 accessToken을 헤더에 넣어서 전달
+4. accessToken 검사(만료 시 refreshToken을 사용자에게 요청 후 accessToken 재발급)
+5. 유효한 토큰일 시 api 실행 / 유효하지 않으면 401 에러 전송
