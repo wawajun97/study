@@ -105,10 +105,9 @@
 
 ### Filter vs Interceptor vs AOP
 
-client -> filter -> dispatcherServlet -> interceptor -> aop -> controller
+<img width="974" height="396" alt="스크린샷 2025-07-24 오후 8 20 47" src="https://github.com/user-attachments/assets/f03253d5-a3b0-4783-98be-7e53a27a4fbd" />
 
-filter는 web context안에서 동작하고 interceptor는 spring context안에서 동작(spring context는 web context안에 위치하고 webcontext는 dispatcherServlet부터 이다.) aop는 로깅, 트랜젝션 등에 사용한다.
--> 그림 넣으면서 수정 필요
+> 출처 : https://mangkyu.tistory.com/173
 
 - filter : Web Context 안에서 동작
   - init : 필터 객체를 초기화하고 서비스를 추가하기 위한 메소드
