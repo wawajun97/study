@@ -20,10 +20,12 @@
 
 ## Netty 용어
 - channel : 사용자 연결
+- channelPipeline : 채널과 이벤트 핸들러 사이의 통로
 - eventLoop : 여러개의 channel
 - eventLoopGroup : 여러개의 eventLoop
 - selector : 다수의 channel을 하나의 쓰레드로 관리하는 역할(eventLoop 한개당 하나의 selector를 가짐)
-
+- Bootstrap : netty의 환경설정을 도와주는 클래스
+  
 ## 동작 순서
   1. 사용자 요청 -> 백앤드 코드는 서버 연결 시도
   2. 서버는 클라이언트 연결에 대응하는 소켓 채널 객체 생성
