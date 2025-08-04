@@ -20,7 +20,7 @@
     option java_multiple_files = true;
     option java_package = "com.example.grpc_ex";
     service SpeechService {
-      rpc recognize (SpeechRequest) returns (stream SpeechResponse);
+      rpc recognize (stream SpeechRequest) returns (stream SpeechResponse);
     }
     
     message SpeechRequest {
