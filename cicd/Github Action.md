@@ -18,3 +18,37 @@
 ### Action
   - Github Actions에서 실행 가능한 재사용 가능한 작업단위
   - 커스텀 액션을 작성하거나 마켓 플레이스에서 다운로드 가능
+
+### 에러
+
+아래와 같이 작성 시 war가 아닌 build 디렉토리가 복사됨
+ 
+ ```       
+    - name: Copy WAR to EC2
+      uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.HEYLOCAL_HOST }}
+        username: ${{ secrets.HEYLOCAL_USERNAME }}
+        key: ${{ secrets.HEYLOCAL_PRIVATEKEY }}
+        port: 22
+        source: ./build/libs/heylocal-server-0.0.1-SNAPSHOT.war
+        target: /opt/temp/
+ ```
+
+해결 : war 파일을 현위치에 복사 후 복사된 war를 서버에 복사
+
+  ```
+      - name: Change filename
+        run: mv ./build/libs/heylocal-server-0.0.1-SNAPSHOT.war ./heylocal.war
+        
+      - name: Copy WAR to EC2
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.HEYLOCAL_HOST }}
+          username: ${{ secrets.HEYLOCAL_USERNAME }}
+          key: ${{ secrets.HEYLOCAL_PRIVATEKEY }}
+          port: 22
+          source: heylocal.war
+          target: /opt/temp/
+  ```
+
