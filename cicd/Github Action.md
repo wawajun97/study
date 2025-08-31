@@ -52,4 +52,4 @@
           target: /opt/temp/
   ```
 --- 
-전체 Workflow는 app-in-toss 프로젝트 확인
+전체 Workflow는 app-in-toss-server 프로젝트 확인
