@@ -36,10 +36,13 @@
 ## 동작 순서
   1. 사용자 요청 -> channel 객체 생성하여 연결
   2. 연결이 완료되면 클라이언트가 데이터 송신
-  3. 이벤트가 발생하면 selector에게 알려주고 selector가 eventLoop에게 이벤트 전달
+  3. 이벤트가 발생하면 selector가 인지하고 이벤트를 eventLoop에 전달
   4. eventLoop가 channelPipeline에 이벤트 전달
-  5. channelPipeline은 InboundChannelHandler에게 이벤트 전달
+  5. channelPipeline은 등록된 channelHandler들 중 처리해야할 핸들러에게 이벤트 전달
   6. 비즈니스 로직 처리
 
 ***
-reactor netty가 있다는데 찾아봐야함
+- reactor netty가 있다는데 찾아봐야함
+- Spring webFlux : netty를 활용하여 만듬 -> 찾아봐야함
+- channel과 사용자는 1:1 매핑이라고 봐도 무관
+- selector는 os단에서 파일 디스크립터를 사용하여 처리(multiplexing과 관련) -> 더 찾아봐야됨
