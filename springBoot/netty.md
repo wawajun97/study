@@ -15,7 +15,7 @@
   1. 불필요한 복사를 제거 -> 소켓의 read write를 Heap 외부에 직접 메모리를 사용 -> 버퍼를 pooling하는 방식 사용
   2. 헤더와 바디가 같이 있어서 복합 버퍼가 가능 -> Unpooled 클래스 사용
   3. 동적 버퍼타입
-  4. flip 메소드가 필요없다 -> 읽기 쓰기를 구분하여 포인터(writerIndex, readerIndext)가 있기 때문에 가능
+  4. flip 메소드가 필요없다 -> 읽기 쓰기를 구분하여 포인터(writerIndex, readerIndex)가 있기 때문에 가능
 자바 socket 방식은 tcp/udp 개발 방식이 다르다
 
 ## Netty 용어
