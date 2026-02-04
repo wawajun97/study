@@ -7,3 +7,47 @@ BFS : 너비 우선 탐색
 2. 큐에 들어가 있는 노드가 있으면 꺼내서 작업하고 자식 노드들을 큐에 추가
 3. 큐가 비어있지 않으면 반복
 
+기본 bfs
+```java
+public void bfs() {
+		if (isEmpty())
+			return;
+
+		Queue<Integer> queue = new ArrayDeque<>();
+		queue.offer(1);
+
+		while (!queue.isEmpty()) {
+			int current = queue.poll();
+			System.out.println(current + ": " + nodes[current]);
+			if (current * 2 <= lastIndex) queue.offer(current * 2);
+			if (current * 2 + 1 <= lastIndex) queue.offer(current * 2 + 1);
+			
+		}
+	}
+```
+
+너비 관리 bfs
+```java
+public void bfs3() {
+		if (isEmpty())
+			return;
+
+		int breadth = 0;
+		Queue<Integer> queue = new ArrayDeque<>();
+		queue.offer(1);
+
+		while (!queue.isEmpty()) {
+			int size = queue.size();
+
+      //너비가 같은 데이터만 탐색
+			while(--size >= 0) {
+				int current = queue.poll();
+				System.out.println(nodes[current]+"/"+ breadth);
+				if (current * 2 <= lastIndex) queue.offer(current * 2);
+				if (current * 2 + 1 <= lastIndex) queue.offer(current * 2 + 1);	
+			}
+			
+			breadth++;
+		}
+	}
+```
