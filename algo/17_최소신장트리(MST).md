@@ -110,3 +110,86 @@ PRIM 알고리즘 : 하나의 정점에서 연결된 간선들 중에 하나씩 
 1. 임의 정점을 하나 선택해서 시작
 2. 선택한 정점과 인접하는 정점들 중의 최소 비용의 간선이 존재하는 정점을 선택
 3. 모든 정점이 선택될 때까지 2번 반복
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
+
+public class MST_Prim_PQ {
+	public static class Vertex implements Comparable<Vertex> {
+		int no;
+		int weight;
+		
+		public Vertex(int no, int weight) {
+			super();
+			this.no = no;
+			this.weight = weight;
+		}
+		
+		@Override
+		public int compareTo(Vertex o) {
+//			return this.weight - o.weight;
+			return Integer.compare(this.weight, o.weight);
+		}
+	}
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		int V = Integer.parseInt(st.nextToken());
+		int e = Integer.parseInt(st.nextToken());
+		
+		List<Vertex>[] adj = new ArrayList[V];
+		
+		for(int i =0;i<V;i++) {
+			adj[i] = new ArrayList<>();
+		}
+		
+		for(int i =0;i<e;i++) {
+			st = new StringTokenizer(br.readLine(), " ");
+			int from = Integer.parseInt(st.nextToken());
+			int to = Integer.parseInt(st.nextToken());
+			int weight = Integer.parseInt(st.nextToken());
+			
+			adj[from].add(new Vertex(to,weight));
+			adj[to].add(new Vertex(from,weight));
+		}
+		
+		boolean[] visited = new boolean[V];
+		
+		PriorityQueue<Vertex> pq = new PriorityQueue<>();
+		
+		int ans = 0;
+		int pick = 0;
+		
+		pq.offer(new Vertex(0,0));
+		
+		while(!pq.isEmpty()) {
+			Vertex v = pq.poll();
+			
+			if(visited[v.no]) continue;
+			
+			ans += v.weight;
+			
+			if(++pick == V) break;
+			
+			visited[v.no] = true;
+			List<Vertex> list = adj[v.no];
+			
+			for(Vertex temp : list) {
+				if(!visited[temp.no]) {
+					pq.offer(temp);
+				}
+			}
+		}
+		
+		System.out.println(ans);
+	}
+
+}
+```
