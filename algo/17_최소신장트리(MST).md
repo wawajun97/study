@@ -114,6 +114,82 @@ PRIM 알고리즘 : 하나의 정점에서 연결된 간선들 중에 하나씩 
 2. 선택한 정점과 인접하는 정점들 중의 최소 비용의 간선이 존재하는 정점을 선택
 3. 모든 정점이 선택될 때까지 2번 반복
 
+리스트 사용
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class MST_Prim_List {
+	public static class Node {
+		int vertex;
+		int weight;
+		Node next;
+		
+		public Node(int vertex, int weight, Node next) {
+			this.vertex = vertex;
+			this.weight = weight;
+			this.next = next;
+		}
+	}
+	
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		
+		int V = Integer.parseInt(st.nextToken());
+		int E = Integer.parseInt(st.nextToken());
+		Node[] adjList = new Node[V];
+		boolean[] visited = new boolean[V];
+		int[] minEdge = new int[V];
+		
+		for(int j =0;j<E;j++) {
+			st = new StringTokenizer(br.readLine(), " ");
+			int from = Integer.parseInt(st.nextToken());
+			int to = Integer.parseInt(st.nextToken());
+			int weight = Integer.parseInt(st.nextToken());
+			adjList[from] = new Node(to,weight,adjList[from]);
+			adjList[to] = new Node(from,weight,adjList[to]);
+		}
+		
+		
+		Arrays.fill(minEdge, Integer.MAX_VALUE);
+		minEdge[0] = 0; //시작 정점 설정
+		
+		int result = 0;
+		int c;
+		for(c = 0;c<V;c++) {
+			int min = Integer.MAX_VALUE;
+			int minVertex = -1;
+			
+			for (int i = 0; i < V; i++) {
+				if(!visited[i] && min > minEdge[i]) {
+					minVertex = i;
+					min = minEdge[i];
+				}
+			}
+			
+			if(minVertex == -1) break;
+			visited[minVertex] = true;
+			result += min;
+			
+			for (Node temp = adjList[minVertex]; temp != null; temp = temp.next) {
+				if(!visited[temp.vertex] && minEdge[temp.vertex] > temp.weight) {
+					minEdge[temp.vertex] = temp.weight;
+				}
+			}
+		}
+		
+		System.out.println(c == V ? result : -1);
+	}
+
+}
+
+```
+
+pq 사용
 ```java
 import java.io.BufferedReader;
 import java.io.IOException;
