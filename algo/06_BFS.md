@@ -1,13 +1,19 @@
-BFS : 너비 우선 탐색
-- 루트 노드의 자식 노드들을 먼저 모두 차례로 방문한 후에 방문했던 자식 노드들을 기준으로 하여 다시 해당 노드의 자식 노드들을 차례로 방문하는 방식
-- 낮은 레벨(너비)부터 모두 순회한 후 높은 레벨(너비)로 내려간다
-- 큐를 활용한다
+# BFS
 
-1. 큐에 루트 노드 추가
-2. 큐에 들어가 있는 노드가 있으면 꺼내서 작업하고 자식 노드들을 큐에 추가
-3. 큐가 비어있지 않으면 반복
+BFS(Breadth-First Search)는 너비 우선 탐색이다.
 
-기본 bfs
+- 루트 노드의 자식 노드들을 먼저 모두 방문한 뒤, 그다음 레벨의 노드들을 차례대로 방문한다.
+- 낮은 레벨부터 높은 레벨 순서로 탐색한다.
+- 큐를 사용해 구현한다.
+
+## 기본 진행 방식
+
+1. 큐에 루트 노드를 넣는다.
+2. 큐에서 노드를 하나 꺼내 처리한 뒤, 그 자식 노드들을 큐에 넣는다.
+3. 큐가 빌 때까지 반복한다.
+
+## 기본 BFS
+
 ```java
 public void bfs() {
 		if (isEmpty())
@@ -21,12 +27,13 @@ public void bfs() {
 			System.out.println(current + ": " + nodes[current]);
 			if (current * 2 <= lastIndex) queue.offer(current * 2);
 			if (current * 2 + 1 <= lastIndex) queue.offer(current * 2 + 1);
-			
+
 		}
 	}
 ```
 
-너비 관리 bfs
+## 너비를 관리하는 BFS
+
 ```java
 public void bfs3() {
 		if (isEmpty())
@@ -44,9 +51,9 @@ public void bfs3() {
 				int current = queue.poll();
 				System.out.println(nodes[current]+"/"+ breadth);
 				if (current * 2 <= lastIndex) queue.offer(current * 2);
-				if (current * 2 + 1 <= lastIndex) queue.offer(current * 2 + 1);	
+				if (current * 2 + 1 <= lastIndex) queue.offer(current * 2 + 1);
 			}
-			
+
 			breadth++;
 		}
 	}
